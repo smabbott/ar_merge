@@ -17,7 +17,7 @@ USAGE
 Merge from outside the model:
 
 ```Ruby
-user.merge!(other,:attributes=>user.attributes.keys,:associations=>%w[movies friends])`
+user.merge!(other,:attributes=>user.attributes.keys,:associations=>%w[movies friends])
 ```
 
 Merge from inside the model
@@ -28,6 +28,13 @@ User < ActiveRecord::Base
     super(other,:attributes=>%w[email website])
   end
 end
+```
+
+before_save callback
+```Ruby
+  user.merge!(other) do |user, other|
+    ...
+  end
 ```
 
 Merge duplicates
