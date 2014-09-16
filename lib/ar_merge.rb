@@ -3,7 +3,7 @@ require 'active_record'
 
 module ARMerge
   module InstanceMethods
-    def merge!(other, options={})
+    def merge!(other, options={}, &block)
       raise "cannot merge with a new record" if other.new_record?
       raise "cannot merge with myself" if other == self
 
@@ -26,6 +26,7 @@ module ARMerge
 
       #cleanup
       other.reload.destroy
+      yield self, other if block
       save!
     end
   end

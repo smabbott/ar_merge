@@ -7,6 +7,27 @@ describe ARMerge do
       @u2 = User.create!(:name=>'y')
     end
 
+    describe "before_save callback" do
+      it "accepts and calls a block" do
+        block_called = false
+        @user.merge!(@u2) do |m|
+          block_called = true
+        end
+        block_called.should eql(true)
+      end
+      it "passes the object to the block" do
+        @user.merge!(@u2) do |u|
+          u.should eql(@user)
+        end
+      end
+      it "passes the other object" do
+        @user.merge!(@u2) do |u,o|
+          o.should eql(@u2)
+        end
+      end
+
+    end
+
     describe "removal" do
       it "removes the merged user" do
         @user.merge!(@u2)
