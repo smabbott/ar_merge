@@ -4,7 +4,7 @@ require 'active_record'
 module ARMerge
   module InstanceMethods
     def merge!(other, options={})
-      raise "cannot merge wit a new record" if other.new_record?
+      raise "cannot merge with a new record" if other.new_record?
       raise "cannot merge with myself" if other == self
 
       #merge associations
